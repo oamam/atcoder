@@ -7,8 +7,7 @@ def main():
     while True:
         if i + K > N:
             break
-        th = hs[i:i + K]
-        r = min(r, th[-1] - th[0])
+        r = min(r, hs[i + K - 1] - hs[i])
         i += 1
     print(r)
 
