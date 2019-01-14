@@ -1,32 +1,22 @@
-def amida(h, w, k, n):
-    if w == 1:
-        if k == 1:
-            return 1
-        else:
-            return 0
-    if h == 0:
-        if n == k:
-            return 1
-        else:
-            return 0
-    cnt = 0
-    if n == 1:
-        cnt += amida(h - 1, w, k, n + 1)
-        cnt += amida(h - 1, w, k, n) * (w - 1)
-    elif w == n:
-        cnt += amida(h - 1, w, k, n - 1)
-        cnt += amida(h - 1, w, k, n) * (w - 1)
-    else:
-        cnt += amida(h - 1, w, k, n + 1)
-        cnt += amida(h - 1, w, k, n - 1)
-        cnt += amida(h - 1, w, k, n) * (w - 2)
-
-    return cnt
-
-
 def main():
     H, W, K = list(map(int, input().split()))
-    print(amida(H, W, K, 1) % 1000000007)
+    dp = [[0 for _ in range(W)] for _ in range(H + 1)]
+    dp[0][0] = 1
+
+    for i in range(H):
+        for j in range(1 << (W - 1)):
+            if '11' in bin(j):
+                continue
+            j <<= 1
+            for k in range(W):
+                if j & (1 << k):
+                    dp[i + 1][k] += dp[i][k - 1]
+                elif j & (1 << (k + 1)):
+                    dp[i + 1][k] += dp[i][k + 1]
+                else:
+                    dp[i + 1][k] += dp[i][k]
+                dp[i + 1][k] %= (10 ** 9 + 7)
+    print(dp[H][K - 1])
 
 
 if __name__ == '__main__':
