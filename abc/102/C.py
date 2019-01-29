@@ -1,10 +1,11 @@
 def main():
     N = int(input())
     A = list(map(int, input().split()))
-    ans = 10 ** 9
-    for b in range(N):
-        ans = min(ans, sum([abs(a - (b + j + 1)) for j, a in enumerate(A)]))
-        ans = min(ans, sum([abs(a - (-b + j + 1)) for j, a in enumerate(A)]))
+    B = [a - i for i, a in enumerate(A)]
+    B.sort()
+    ans = 0
+    for i in range(N):
+        ans += abs(A[i] - (B[N // 2] + i))
     print(ans)
 
 
