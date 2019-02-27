@@ -1,47 +1,38 @@
+import bisect
+
+
+def f(a, x):
+    i = bisect.bisect_left(a, x)
+    if 0 >= i:
+        return a[0]
+    if i >= len(a):
+        return a[-1]
+    if x - a[i - 1] > a[i] - x:
+        return a[i]
+    return a[i - 1]
+
+
 def main():
     A, B, Q = map(int, input().split())
-    s = []
-    t = []
+    s = [-float('inf')]
+    t = [-float('inf')]
     ans = []
     for _ in range(A):
         s.append(int(input()))
     for _ in range(B):
         t.append(int(input()))
+    s.append(float('inf'))
+    t.append(float('inf'))
     for _ in range(Q):
         x = int(input())
-        s.append(x)
-        s.sort()
-        i = s.index(x)
-        if i > 0:
-            if A > i:
-                if s[i] - s[i - 1] > s[i + 1] - s[i]:
-                    si = s[i + 1]
-                else:
-                    si = s[i - 1]
-            else:
-                si = s[i - 1]
-        else:
-            si = s[i + 1]
-        t.append(x)
-        t.sort()
-        j = t.index(x)
-        if j > 0:
-            if B > j:
-                if t[j] - t[j - 1] > t[j + 1] - t[j]:
-                    tj = t[j + 1]
-                else:
-                    tj = t[j - 1]
-            else:
-                tj = t[j - 1]
-        else:
-            tj = t[j + 1]
-        print(si, tj)
-        if abs(x - si) > abs(x - tj):
-            ans.append(abs(x - tj) + abs(tj - si))
-        else:
-            ans.append(abs(x - si) + abs(si - tj))
-        s.pop(i)
-        t.pop(j)
+        i = bisect.bisect_right(s, x)
+        j = bisect.bisect_right(t, x)
+        a = float('inf')
+        for ss in [s[i - 1], s[i]]:
+            for tt in [t[j - 1], t[j]]:
+                a = min(a, abs(ss - x) + abs(tt - ss),
+                        abs(tt - x) + abs(ss - tt))
+        ans.append(a)
     for a in ans:
         print(a)
 
