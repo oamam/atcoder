@@ -1,17 +1,6 @@
 import bisect
 
 
-def f(a, x):
-    i = bisect.bisect_left(a, x)
-    if 0 >= i:
-        return a[0]
-    if i >= len(a):
-        return a[-1]
-    if x - a[i - 1] > a[i] - x:
-        return a[i]
-    return a[i - 1]
-
-
 def main():
     A, B, Q = map(int, input().split())
     s = [-float('inf')]
