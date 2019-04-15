@@ -16,19 +16,14 @@ def main():
     if len(nums) % 2 == 0:
         nums.append(0)
     add = 2 * K + 1
+    sum = [0 for _ in range(len(nums) + 1)]
+    for i in range(len(nums)):
+        sum[i + 1] = sum[i] + nums[i]
     ans = 0
-    left = 0
-    right = 0
-    tmp = 0
     for cnt in range(0, len(nums), 2):
-        nleft = cnt
-        nright = min(cnt + add, len(nums))
-        while nleft > left:
-            tmp -= nums[left]
-            left += 1
-        while nright > right:
-            tmp += nums[right]
-            right += 1
+        left = cnt
+        right = min(cnt + add, len(nums))
+        tmp = sum[right] - sum[left]
         ans = max(tmp, ans)
     print(ans)
 
