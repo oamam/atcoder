@@ -17,12 +17,18 @@ def main():
         nums.append(0)
     add = 2 * K + 1
     ans = 0
+    left = 0
+    right = 0
+    tmp = 0
     for cnt in range(0, len(nums), 2):
-        tmp = 0
-        left = cnt
-        right = min(cnt + add, len(nums))
-        for j in range(left, right):
-            tmp += nums[j]
+        nleft = cnt
+        nright = min(cnt + add, len(nums))
+        while nleft > left:
+            tmp -= nums[left]
+            left += 1
+        while nright > right:
+            tmp += nums[right]
+            right += 1
         ans = max(tmp, ans)
     print(ans)
 
