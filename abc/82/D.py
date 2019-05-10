@@ -1,29 +1,26 @@
-s = input()
-gx, gy = map(int, input().split())
-
-
-def dfs(x, y, si, f):
-    if len(s) == si:
-        if (x, y) == (gx, gy):
-            return True
-        return False
-    ans = False
-    if s[si] == 'T':
-        return dfs(x, y, si + 1, not f)
-    if f:
-        for xx, yy in [(x + 1, y), (x - 1, y)]:
-            ans = ans or dfs(xx, yy, si + 1, f)
-    else:
-        for xx, yy in [(x, y + 1), (x, y - 1)]:
-            ans = ans or dfs(xx, yy, si + 1, f)
-    return ans
-
-
 def main():
-    if dfs(0, 0, 0, True):
-        print('Yes')
-    else:
-        print('No')
+    s = input()
+    x, y = map(int, input().split())
+    sl = s.split('T')
+    dx = list(map(len, sl[::2]))
+    dy = list(map(len, sl[1::2]))
+    # Initially, the robot is facing the positive direction of the x axis.
+    # So it takes out The first move amount from the length list for x.
+    nx = dx.pop(0)
+    ny = 0
+    dx.sort(reverse=True)
+    dy.sort(reverse=True)
+    for xx in dx:
+        if x >= nx:
+            nx += xx
+        else:
+            nx -= xx
+    for yy in dy:
+        if y >= ny:
+            ny += yy
+        else:
+            ny -= yy
+    print('YNeos'[nx != x or ny != y::2])
 
 
 main()
