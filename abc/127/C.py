@@ -1,17 +1,15 @@
 def main():
     N, M = map(int, input().split())
-    A = [0] * (N + 1)
+    L = []
+    R = []
     for _ in range(M):
-        L, R = map(int, input().split())
-        A[L - 1] += 1
-        A[R] -= 1
-    c = 0
-    ans = 0
-    for i, a in enumerate(A):
-        c += a
-        if c == M:
-            ans += 1
-    print(ans)
+        l, r = map(int, input().split())
+        L.append(l)
+        R.append(r)
+    if min(R) - max(L) >= 0:
+        print(min(R) - max(L) + 1)
+    else:
+        print(0)
 
 
 main()
