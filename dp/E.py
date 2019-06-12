@@ -1,24 +1,23 @@
 def main():
     N, W = map(int, input().split())
-    Ws = []
-    Vs = []
+    MV = 10**5
+    dp = [float('INF')] * (MV + 1)
+    dp[0] = 0
     for _ in range(N):
         w, v = map(int, input().split())
-        Ws.append(w)
-        Vs.append(v)
-    mv = sum(Vs)
-    dp = [[float('INF')] * (mv + 1) for _ in range(N + 1)]
-    dp[0][0] = 0
-    for i in range(N):
-        for j in range(mv + 1):
-            if Vs[i] > j:
-                dp[i + 1][j] = dp[i][j]
+        for i in range(MV, -1, -1):
+            if v > i:
+                tmp = w
             else:
-                dp[i + 1][j] = min(dp[i][j], dp[i][j - Vs[i]] + Ws[i])
-    for j in range(mv, -1, -1):
-        if W >= dp[N][j]:
-            print(j)
+                tmp = dp[i - v] + w
+            dp[i] = min(dp[i], tmp)
+    ans = 0
+    for v, w in enumerate(dp):
+        if W >= w:
+            ans = max(ans, v)
+        else:
             break
+    print(ans)
 
 
 main()
