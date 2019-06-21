@@ -15,9 +15,8 @@ ans = float('INF')
 def dfs(c, s, d):
     global ans
     if c == R:
-        if ans > d:
-            ans = d
-            return
+        ans = max(ans, d)
+        return
     for i in range(R):
         if V[i] is True:
             continue
