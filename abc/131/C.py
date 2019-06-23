@@ -1,21 +1,24 @@
-import fractions
+def gcd(a, b):
+    while b > 0:
+        c = a % b
+        a = b
+        b = c
+    return a
+
+
+def lcm(a, b):
+    return a * b // gcd(a, b)
 
 
 def main():
     A, B, C, D = map(int, input().split())
-    lcm = (C * D) // fractions.gcd(C, D)
+    E = lcm(C, D)
     bc = B // C
-    ac = A // C
-    if A % C == 0:
-        ac -= 1
+    ac = (A - 1) // C
     bd = B // D
-    ad = A // D
-    if A % D == 0:
-        ad -= 1
-    blcm = B // lcm
-    alcm = A // lcm
-    if A % lcm == 0:
-        alcm -= 1
+    ad = (A - 1) // D
+    blcm = B // E
+    alcm = (A - 1) // E
     print(B - A + 1 - ((bc - ac) + (bd - ad) - (blcm - alcm)))
 
 
