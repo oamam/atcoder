@@ -3,7 +3,7 @@ def main():
     dp = [[[[0 for _ in range(4)] for _ in range(4)]
            for _ in range(4)] for _ in range(101)]
     dp[0][3][3][3] = 1
-    mod = 1_000_000_007
+    mod = 10 ** 9 + 7
     for n in range(100):
         for i in range(4):
             for j in range(4):
