@@ -9,3 +9,7 @@
 ## 優先度付きキュー
 
 - [ABC 137 D - Summer Vacation](https://atcoder.jp/contests/abc137/tasks/abc137_d)
+
+## 貪欲法
+
+- [ABC 048 C - Boxes and Candies](https://atcoder.jp/contests/abc048/tasks/arc064_a)
