@@ -1,16 +1,7 @@
-def main():
-    N, K = list(map(int, input().split()))
-    hs = [int(input()) for i in range(N)]
-    hs.sort()
-    i = 0
-    r = 10 ** 9
-    while True:
-        if i + K > N:
-            break
-        r = min(r, hs[i + K - 1] - hs[i])
-        i += 1
-    print(r)
-
-
-if __name__ == '__main__':
-    main()
+N, K = map(int, input().split())
+H = [int(input()) for _ in range(N)]
+H.sort()
+ans = float('INF')
+for i in range(N - K + 1):
+    ans = min(ans, H[i + K - 1] - H[i])
+print(ans)
