@@ -1,24 +1,17 @@
-def dfs(i, P):
-    if len(P) == N:
-        return 1
-    c = 0
-    for j, v in enumerate(G[i]):
-        if j in P or v != 1:
-            continue
-        c += dfs(j, P + [j])
-    return c
-
+import itertools
 
 N, M = map(int, input().split())
-G = [[0] * N for _ in range(N)]
-for _ in range(M):
-    a, b = map(int, input().split())
-    a -= 1
-    b -= 1
-    G[a][b] = 1
-    G[b][a] = 1
+pl = itertools.permutations([i for i in range(1, N + 1)])
+ab = [list(map(int, input().split())) for _ in range(M)]
 ans = 0
-for i, v in enumerate(G[0]):
-    if v == 1:
-        ans += dfs(i, [0, i])
+for l in pl:
+    if l[0] != 1:
+        continue
+    f = True
+    for i in range(N - 1):
+        if not ([l[i], l[i + 1]] in ab or [l[i + 1], l[i]] in ab):
+            f = False
+            break
+    if f:
+        ans += 1
 print(ans)
